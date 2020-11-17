@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from '@aws-cdk/core';
-import { BackendStack } from '../lib/backend-stack';
+import { LambdaStack } from '../lib/lambda-stack';
+import { config } from '../config'
 
 const app = new cdk.App();
-new BackendStack(app, 'BackendStack');
+new LambdaStack(app, 'WarehouseAppLambdaStack', config);
