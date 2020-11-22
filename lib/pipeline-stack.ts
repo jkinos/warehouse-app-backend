@@ -53,7 +53,7 @@ public readonly apigatewayEndpoint: CDK.CfnOutput
             },
             commands: [
                 'curl -Ssf $ENDPOINT_URL',
-                'curl -Ssf $ENDPOINT_URL/hello',
+                'curl -Ssf $ENDPOINT_URL/products/jackets',
             ]
         }));
 }

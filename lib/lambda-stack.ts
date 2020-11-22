@@ -1,6 +1,8 @@
 import * as CDK from '@aws-cdk/core';
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as apigw from '@aws-cdk/aws-apigateway';
+import { Duration } from '@aws-cdk/core';
+import { ManagedPolicy} from '@aws-cdk/aws-iam'
 
   export class LambdaStack extends CDK.Stack {
     public readonly apiGatewayEndpoint: CDK.CfnOutput
@@ -10,17 +12,22 @@ import * as apigw from '@aws-cdk/aws-apigateway';
 
       const getProducts = new lambda.Function(this, 'GetProducts', {
         runtime: lambda.Runtime.NODEJS_10_X,    
-        code: lambda.Code.fromAsset('lambda'),  // code loaded from "lambda" directory
-        handler: 'getProducts.handler'                
+        code: lambda.Code.fromAsset('lambda'),  
+        handler: 'handler.getProducts',
+        timeout: Duration.seconds(30),
+        memorySize: 200
       });
 
-      const gateway = new apigw.LambdaRestApi(this, 'Endpoint', {
-        handler: getProducts
+      const gateway = new apigw.LambdaRestApi(this, 'Warehouse-App-Endpoint', {
+        handler: getProducts,
+        proxy: false
       });
+      const products = gateway.root.addResource('products');
+      const category = products.addResource('{category}');
+      category.addMethod('GET');
 
       this.apiGatewayEndpoint = new CDK.CfnOutput(this, 'GatewayUrl', {
         value: gateway.url
-      });
-  
+      }); 
     }
 }
