@@ -5,4 +5,4 @@ import { Pipeline } from '../lib/pipeline-stack';
 import { config } from '../config'
 
 const app = new cdk.App();
-new Pipeline(app, 'WarehouseApp', config);
+new Pipeline(app, 'WarehouseAppBackendPipeline', config);
