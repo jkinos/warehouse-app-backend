@@ -15,7 +15,7 @@ import { ManagedPolicy} from '@aws-cdk/aws-iam'
         code: lambda.Code.fromAsset('lambda'),  
         handler: 'handler.getProducts',
         timeout: Duration.seconds(30),
-        memorySize: 200
+        memorySize: 140
       });
 
       const gateway = new apigw.LambdaRestApi(this, 'Warehouse-App-Endpoint', {
