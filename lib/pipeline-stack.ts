@@ -33,8 +33,7 @@ public readonly apigatewayEndpoint: CDK.CfnOutput
     const synthAction = SimpleSynthAction.standardNpmSynth({
       sourceArtifact, 
       cloudAssemblyArtifact,
-      installCommand: 'npm ci && cd lambda && npm ci && cd ..',
-      buildCommand: 'npm run build'
+      buildCommand: 'cd lambda && npm run install && cd .. && npm run build'
   })
     const pipeline = new CdkPipeline(this, 'Pipeline', {
       pipelineName: 'Warehouse-app',
