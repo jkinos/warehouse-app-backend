@@ -52,7 +52,6 @@ public readonly apigatewayEndpoint: CDK.CfnOutput
                 ENDPOINT_URL: pipeline.stackOutput(deploy.apiGatewayEndpoint)
             },
             commands: [
-                'curl -Ssf $ENDPOINT_URL',
                 'curl -Ssf $ENDPOINT_URL/products/jackets',
             ]
         }));
