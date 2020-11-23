@@ -39,15 +39,10 @@ return Array.from(manufacturers)
 }
 
 export const fetchAllAvailability = async (manufacturers: string[]):Promise<Availability[]> => {
-let result: Availability[]=[]
 
-await Promise.all(
-  manufacturers.map(async manufacturer => {
-    const data = await fetchAvailability(manufacturer)
-    result = result.concat(data)
-  })
-)
-return result
+const promises = manufacturers.map( manufacturer => fetchAvailability(manufacturer))
+const result = await Promise.all(promises)
+return result.flat()
 }
 
 export const manipulateAvailabilityData = (dataOld: Availability[]) => {

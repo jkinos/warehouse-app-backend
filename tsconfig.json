@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2018",
     "module": "commonjs",
-    "lib": ["es2018"],
+    "lib": ["es2018","es2019.array"],
     "declaration": true,
     "strict": true,
     "noImplicitAny": true,
