@@ -3,7 +3,7 @@ import { getProducts } from '../lambda/handler'
 
 describe('lambda fuction retrieves data from the legacy apis and returns new data', () => {
     test('when category is jackets', async() => {
-        jest.setTimeout(10000)
+        jest.setTimeout(15000)
         
         const event = {pathParameters: {category : 'jackets'}}
         // @ts-ignore

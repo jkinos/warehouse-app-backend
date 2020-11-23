@@ -13,7 +13,7 @@ export const fetchProducts = async (category: Category, headers?: Headers): Prom
     return response.data
   }
   catch (error) {
-    console.error(error)
+    console.log(error)
     throw error
   }
 }
@@ -27,7 +27,7 @@ export const fetchAvailability = async (manufacturer: string, headers?: Headers)
     return response.data.response
   }
   catch (error) {
-    console.error(error)
+    console.log(error)
     throw error
   }
 }
@@ -39,10 +39,11 @@ return Array.from(manufacturers)
 }
 
 export const fetchAllAvailability = async (manufacturers: string[]):Promise<Availability[]> => {
-
 const promises = manufacturers.map( manufacturer => fetchAvailability(manufacturer))
-const result = await Promise.all(promises)
-return result.flat()
+const resolved = await Promise.all(promises)
+const result:Availability[] = []
+return result.concat(...resolved)
+
 }
 
 export const manipulateAvailabilityData = (dataOld: Availability[]) => {
