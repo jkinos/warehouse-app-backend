@@ -2,7 +2,6 @@ import * as CDK from '@aws-cdk/core';
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as apigw from '@aws-cdk/aws-apigateway';
 import { Duration } from '@aws-cdk/core';
-import { ManagedPolicy} from '@aws-cdk/aws-iam'
 
   export class LambdaStack extends CDK.Stack {
     public readonly apiGatewayEndpoint: CDK.CfnOutput
@@ -15,7 +14,7 @@ import { ManagedPolicy} from '@aws-cdk/aws-iam'
         code: lambda.Code.fromAsset('lambda'),  
         handler: 'handler.getProducts',
         timeout: Duration.seconds(30),
-        memorySize: 140
+        memorySize: 200
       });
 
       const gateway = new apigw.LambdaRestApi(this, 'Warehouse-App-Endpoint', {
