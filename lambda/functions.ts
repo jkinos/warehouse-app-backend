@@ -34,7 +34,7 @@ export const fetchAvailability = async (manufacturer: string, headers?: Headers)
 
 export const getManufacturers =  (products: Product[]):string[] => {
 const manufacturers: Set<string> = new Set()
-products.map((product:Product) => manufacturers.add(product.manufacturer))
+products.forEach((product:Product) => manufacturers.add(product.manufacturer))
 return Array.from(manufacturers)
 }
 
@@ -43,7 +43,6 @@ const promises = manufacturers.map( manufacturer => fetchAvailability(manufactur
 const resolved = await Promise.all(promises)
 const result:Availability[] = []
 return result.concat(...resolved)
-
 }
 
 export const manipulateAvailabilityData = (dataOld: Availability[]) => {
