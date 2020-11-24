@@ -16,36 +16,23 @@ export const checkCategoryType = (category: any): Category => {
 }
 
 export const getProducts = async (event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult> => {
-  let category
-try {
   try {
-  category = checkCategoryType(event.pathParameters?.category)
-  }catch (error) {
-    console.error(error)
-    return {
-      headers: { 'Access-Control-Allow-Origin': '*' },
-      statusCode: 404,
-      body: JSON.stringify(error, null, 2)
-    }
-  }
- 
-  const products = await fetchProducts(category)
-  const manufacturers = getManufacturers(products)
-  const availability = await fetchAllAvailability(manufacturers)
-  const newAvailability =  manipulateAvailabilityData(availability)
-  const result = attachAvailabilityToProduct(products, newAvailability)
+    const category = checkCategoryType(event.pathParameters?.category)
+    const products = await fetchProducts(category)
+    const manufacturers = getManufacturers(products)
+    const availability = await fetchAllAvailability(manufacturers)
+    const newAvailability =  manipulateAvailabilityData(availability)
+    const result = attachAvailabilityToProduct(products, newAvailability)
   
   return {
         statusCode: 200,
-        headers: { 'Access-Control-Allow-Origin': '*' },
+        headers: { 
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Expose-Headers': 'Date' },
         body: JSON.stringify(result, null, 2)
       }
-    }catch (error) {
+    } catch (error) {
       console.error(error)
-        return {
-          statusCode: 500,
-          headers: { 'Access-Control-Allow-Origin': '*' },
-          body: JSON.stringify(error, null,2 )
-        }
+        throw(error)
       }
 }
