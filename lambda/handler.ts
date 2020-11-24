@@ -28,7 +28,7 @@ export const getProducts = async (event: APIGatewayEvent, context: Context): Pro
         statusCode: 200,
         headers: { 
           'Access-Control-Allow-Origin': '*',
-          'Access-Control-Expose-Headers': 'Date' },
+          'Access-Control-Expose-Headers': '*' },
         body: JSON.stringify(result, null, 2)
       }
     } catch (error) {
