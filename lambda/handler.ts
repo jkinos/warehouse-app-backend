@@ -22,17 +22,20 @@ export const getProducts = async (event: APIGatewayEvent, context: Context): Pro
     const manufacturers = getManufacturers(products)
     const availability = await fetchAllAvailability(manufacturers)
     const newAvailability =  manipulateAvailabilityData(availability)
-    const result = attachAvailabilityToProduct(products, newAvailability)
+    const newProducts = attachAvailabilityToProduct(products, newAvailability)
+    const result = { 
+      manufacturers: manufacturers,
+      products: newProducts 
+    }
   
   return {
         statusCode: 200,
         headers: { 
           'Access-Control-Allow-Origin': '*',
-          'Access-Control-Expose-Headers': '*' },
+          'Access-Control-Expose-Headers': 'Date' },
         body: JSON.stringify(result, null, 2)
       }
     } catch (error) {
-      console.error(error)
         throw(error)
       }
 }

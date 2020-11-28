@@ -11,7 +11,8 @@ describe('lambda fuction retrieves data from the legacy apis and returns new dat
         //console.log(res)
         expect(res.statusCode).toBe(200)
         const body = JSON.parse(res.body)
-        expect(body[0].availability).toBeDefined()    
+        expect(body.products[0].availability).toBeDefined()
+        expect(body.manufacturers.lenght !== 0)    
         })
 })
 

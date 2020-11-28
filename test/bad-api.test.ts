@@ -58,7 +58,6 @@ describe('bad-api fails with error-mode request header', () => {
         expect(response.status).toBe(200) // forced error mode returns status 200
         expect(response.headers['content-type']).toContain("application\/json")
         const data = await response.data.response
-        // expect(Array.isArray(data)).toBe(false) // in forced-error-mode server returns string "[]"
         expect(data[0].id).toBe(undefined) //  first object is empty or field 'id' missing
     })
 })

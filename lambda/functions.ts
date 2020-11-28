@@ -13,7 +13,6 @@ export const fetchProducts = async (category: Category, headers?: Headers): Prom
     return response.data
   }
   catch (error) {
-    console.log(error)
     throw error
   }
 }
@@ -27,7 +26,6 @@ export const fetchAvailability = async (manufacturer: string, headers?: Headers)
     return response.data.response
   }
   catch (error) {
-    console.log(error)
     throw error
   }
 }
