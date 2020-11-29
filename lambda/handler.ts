@@ -36,6 +36,15 @@ export const getProducts = async (event: APIGatewayEvent, context: Context): Pro
         body: JSON.stringify(result, null, 2)
       }
     } catch (error) {
+      if(error.name ==='Unknown endpoint'){
+        return {
+          statusCode: 400,
+          headers: { 
+            'Access-Control-Allow-Origin': '*'
+          },
+          body: JSON.stringify(error, null, 2)
+        }
+      }
         throw(error)
       }
 }
