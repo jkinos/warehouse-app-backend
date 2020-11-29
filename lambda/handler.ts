@@ -1,4 +1,4 @@
-import { APIGatewayProxyResult, APIGatewayEvent, Context, Callback } from "aws-lambda";
+import { APIGatewayProxyResult, APIGatewayEvent, Context } from "aws-lambda";
 import { fetchProducts, fetchAllAvailability, getManufacturers, manipulateAvailabilityData, attachAvailabilityToProduct} from './functions'
 import { Category } from './types'
 
@@ -15,7 +15,7 @@ export const checkCategoryType = (category: any): Category => {
   }
 }
 
-export const getProducts = async (event: APIGatewayEvent, context: Context, callback: Callback): Promise<APIGatewayProxyResult> => {
+export const getProducts = async (event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult> => {
   try {
     const category = checkCategoryType(event.pathParameters?.category)
     const products = await fetchProducts(category)
@@ -36,15 +36,14 @@ export const getProducts = async (event: APIGatewayEvent, context: Context, call
         body: JSON.stringify(result, null, 2)
       }
     } catch (error) {
-      if(error.name ==='Unknown endpoint'){
-        const errorObj ={
+      if(error.message ==='Unknown endpoint'){
+        return {
           statusCode: 400,
           headers: { 
             'Access-Control-Allow-Origin': '*'
           },
-          body: error
+          body: JSON.stringify(error, null,)
         }
-        callback(JSON.stringify(errorObj))
       }
         throw(error)
       }
