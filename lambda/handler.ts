@@ -42,7 +42,7 @@ export const getProducts = async (event: APIGatewayEvent, context: Context): Pro
           headers: { 
             'Access-Control-Allow-Origin': '*'
           },
-          body: JSON.stringify(error)
+          body: error.message
         }
       }
         throw(error)
